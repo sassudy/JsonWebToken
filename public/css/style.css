@@ -1,0 +1,68 @@
+@import url(https://fonts.googleapis.com/css?family=Ubuntu);
+:root{
+    --bounce-color: #d32a8d;
+    --image-size: 400px;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body, html {
+	background: WhiteSmoke;
+	font-family: 'Ubuntu', sans-serif;
+	color: #0f383e;
+	text-align: center;
+	overflow: hidden;
+}
+    
+.holder {
+    width: 100%;
+    height: 100vh;
+    text-align: center;
+    margin-top: 5rem;
+}
+	
+.avatar {
+	margin: 2rem;			
+
+}
+
+
+h1 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+p {
+    font-size: 0.95rem;
+}
+
+
+
+img.user {
+    height: var(--image-size);
+    width: var(--image-size);
+    background-color: var(--bounce-color) ;
+    box-shadow: 0 0 0 5px var(--bounce-color);
+    border-radius: 50%;
+}
+
+img.user:hover {
+	cursor: pointer; 
+	animation:bounceOut .4s linear;
+}
+
+
+@keyframes bounceOut {
+        0%{ box-shadow: 0 0 0 4px var(--bounce-color); opacity:1;}
+        25% { box-shadow: 0 0 0 1px var(--bounce-color); opacity:1;}
+        50%{ box-shadow: 0 0 0 7px var(--bounce-color); opacity:1; }
+        75%{ box-shadow: 0 0 0 4px var(--bounce-color); opacity:1;}
+        100%{ box-shadow: 0 0 0 5px var(--bounce-color); opacity:1;}
+}

@@ -1,0 +1,67 @@
+<%- include('partials/head') %>
+
+    <title>Login Page</title>
+</head>
+<body>
+
+    <h1>Login area</h1>
+
+    <form>
+        <label for="email">Email</label>
+        <input type="text" name="email">
+        <div class="email-error" style="color: red;"></div>
+
+        <label for="password">Password</label>
+        <input type="password" name="password">
+        <div class="pwd-error" style="color: red;"></div>
+        <button type="submit">Log in</button>
+
+    </form>
+
+    
+    <script>
+        const form = document.querySelector('form');
+        
+        //user data from the form     
+        
+        form.addEventListener('submit', async(e)=>{
+            const userEmail = form.email.value;
+            const userPass = form.password.value;
+            e.preventDefault();
+            console.log(userEmail);
+            console.log(userPass);
+            try {
+                const serverResponse = await fetch('/login', {
+                    method: 'POST',
+                    body: JSON.stringify({email: userEmail, password: userPass}),
+                    headers: {'Content-Type': 'application/json'}
+                });
+
+                const result = await serverResponse.json();
+                console.log(result);
+
+                if(result.errors){
+                    document.querySelector('.email-error').textContent = result.errors.email;
+                }
+
+                if(result.errors){
+                    document.querySelector('.pwd-error').textContent = result.errors.password;
+                }
+
+                if(result.user){
+                    location.assign('/');
+                } 
+
+
+            }
+            catch(e){
+                console.log(e);
+            }
+
+        });
+
+
+
+    </script>
+    
+<%- include('partials/footer') %>

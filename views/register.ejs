@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Register Page</title>
+</head>
+<body>
+    <h1>Register area</h1>
+
+    <form>
+        <label for="email">Email</label>
+        <input type="text" name="email">
+        <div class="email-error" style="color: red;"></div>
+
+        <label for="password">Password</label>
+        <input type="password" name="password">
+        <div class="pwd-error" style="color: red;"></div>
+        <button type="submit">Register</button>
+
+    </form>
+</body>
+</html>
+    <script>
+        const form = document.querySelector('form');   
+        
+        form.addEventListener('submit', async(e)=>{
+            const userEmail = form.email.value;
+            const userPass = form.password.value;
+            e.preventDefault();
+            console.log(userEmail);
+            console.log(userPass);
+            try {
+               
+                const serverResponse = await fetch('/register', {
+                    method: 'POST',
+                    body: JSON.stringify({email: userEmail, password: userPass}),
+                    headers: {'Content-Type': 'application/json'}
+                });
+
+                const result = await serverResponse.json();
+                console.log(result);
+
+                if(result.errors){
+                    document.querySelector('.email-error').textContent = result.errors.email;
+                }
+
+                if(result.errors){
+                    document.querySelector('.pwd-error').textContent = result.errors.password;
+                }
+
+                if(!result.errors){
+                    location.assign('/');
+                }    
+
+            }
+            catch(e){
+                console.log(e);
+            }
+        });
+    </script>
